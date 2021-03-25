@@ -1,13 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import '../App.css';
-import MainPageTemplate from "./template/MainPageTemplate";
-import PageDefaultWrapper from "./template/PageDefaultWrapper";
+import Routes from '../route/Routes';
+
 
 const App = () => {
     return (
-        <PageDefaultWrapper>
-            <MainPageTemplate/>
-        </PageDefaultWrapper>
+        <BrowserRouter>
+            <Routes />
+        </BrowserRouter>
     );
 }
 

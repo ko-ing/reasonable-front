@@ -5,6 +5,6 @@ export const get = (urlEndpoint: string): any => {
     return axios.get(config.serverDomain + urlEndpoint);
 }
 
-export const post = (urlEndpoint: string): any => {
-    return axios.post(config.serverDomain + urlEndpoint);
+export const post = (urlEndpoint: string, data?: any): any => {
+    return axios.post(config.serverDomain + urlEndpoint, data);
 }
