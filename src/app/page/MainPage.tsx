@@ -147,14 +147,14 @@ const MainPage = () => {
 
     const invokeSignIn = async () => {
         // TODO: validate and decrpyt pwd
-        const data = {userId: id, password};
+        const data = {userAccountId: id, password};
         const res = await signIn(data);
         console.log("res", res);
     }
 
     const invokeSignUp = async () => {
         // TODO: validate pwd with confirmpwd and decrpyt
-        const data = {userId: id, userName: name, password, email}
+        const data = {userAccountId: id, userName: name, password, email}
         const res = await signUp(data);
         console.log("res", res);
     }

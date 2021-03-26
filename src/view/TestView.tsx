@@ -1,5 +1,5 @@
 import React from 'react';
-import { post } from "../api/rest";
+import { post } from "../api/http";
 
 const TestView = () => {
     return (

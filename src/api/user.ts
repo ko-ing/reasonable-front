@@ -1,14 +1,14 @@
-import {get, post} from "./rest";
+import {get, post, postUrlEncoded} from "./http";
 
 interface signUp {
-    userId: string,
+    userAccountId: string,
     password: string,
     userName: string,
     email: string,
 }
 
 interface signIn {
-    userId: string,
+    userAccountId: string,
     password: string,
 }
 
@@ -17,7 +17,7 @@ export const signUp = (data: signUp) => {
 }
 
 export const signIn = (data: signIn) => {
-    return post("/auth/signIn", data);
+    return postUrlEncoded("/auth/signIn", data);
 }
 
 export const test = () => {
