@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, {css} from 'styled-components/macro';
-import { signIn, signUp, test } from '../../api/user';
+import { signIn, signUp, test } from '../../util/api/user';
+import { getXSRFToken } from '../../util/cookie';
 
 
 const SignUpWholeWrapper = styled.div`
@@ -149,7 +150,7 @@ const MainPage = () => {
         // TODO: validate and decrpyt pwd
         const data = {userAccountId: id, password};
         const res = await signIn(data);
-        console.log("res", res);
+        // console.log(res, res);
     }
 
     const invokeSignUp = async () => {
