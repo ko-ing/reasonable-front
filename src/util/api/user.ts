@@ -18,9 +18,21 @@ export const signUp = (data: signUp) => {
 }
 
 export const signIn = async (data: signIn) => {
-    const res = await postUrlEncoded("/auth/signIn", data, {withCredentials: true});
     const token = getXSRFToken();
-    return postUrlEncoded("/auth/signIn", data, {"XSRF-TOKEN": token, withCredentials: true});
+
+    postUrlEncoded("/auth/signIn", data, {withCredentials: true})
+    .then((res: any) => {
+        // SUCCEED
+        console.log("res", res);
+    }).catch((error: any) => {
+        // FAILED
+        console.log("error", error);
+    });
+
+    
+    // console.log("token", token);
+
+    // return postUrlEncoded("/auth/signIn", data, {"XSRF-TOKEN": token, withCredentials: true});
 }
 
 export const test = () => {

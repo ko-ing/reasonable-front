@@ -6,5 +6,5 @@ export const getCookie = () => {
 }
 
 export const getXSRFToken = () => {
-    return getCookie().getAll();
+    return getCookie().get('XSRF-TOKEN');
 }
