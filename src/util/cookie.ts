@@ -5,12 +5,12 @@ export const getCookie = () => {
     return cookies;
 }
 
-export const getSessionIdFromCookie = () => {
-    return getCookie().get('JSESSIONID');
-}
-
 export const setAccountIdOnCookie = (userAccountId: string) => {
     return getCookie().set('ACCOUNTID', userAccountId);
+}
+
+export const getAccountIdOnCookie =() => {
+    return getCookie().get('ACCOUNTID');
 }
 
 export const setUserAuthOnCookie = (auth: any) => {
