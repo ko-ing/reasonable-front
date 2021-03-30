@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled, {css} from 'styled-components/macro';
 import { signIn, signUp, test } from '../../util/api/user';
-import { getXSRFToken } from '../../util/cookie';
+import {setAccountIdOnCookie, setUserAuthOnCookie, getUserAuthFromCookie} from '../../util/cookie'
+
 
 
 const SignUpWholeWrapper = styled.div`
@@ -130,7 +131,7 @@ const FindWrapper = styled.div`
     padding: 0px 10vw;
 `;
 
-const MainPage = () => {
+const SignIn = () => {
     const [mode, setMode] =  useState<"signIn" | "signUp">("signIn");
     const [id, setId] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -149,8 +150,14 @@ const MainPage = () => {
     const invokeSignIn = async () => {
         // TODO: validate and decrpyt pwd
         const data = {userAccountId: id, password};
-        const res = await signIn(data);
-        // console.log(res, res);
+        signIn(data)
+            .then(res => {
+                setAccountIdOnCookie(res.data.userAccountId);
+                setUserAuthOnCookie(res.data.authorities);
+            })
+            .catch(error => {
+                //TODO: 로그인 실패시
+            })
     }
 
     const invokeSignUp = async () => {
@@ -158,6 +165,10 @@ const MainPage = () => {
         const data = {userAccountId: id, userName: name, password, email}
         const res = await signUp(data);
         console.log("res", res);
+    }
+    
+    const validateCheckInput = () => {
+
     }
 
     return(
@@ -267,4 +278,4 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+export default SignIn;

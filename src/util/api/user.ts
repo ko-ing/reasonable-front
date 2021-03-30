@@ -1,4 +1,4 @@
-import { getXSRFToken } from "../cookie";
+
 import {get, post, postUrlEncoded} from "./http";
 
 interface signUp {
@@ -18,21 +18,7 @@ export const signUp = (data: signUp) => {
 }
 
 export const signIn = async (data: signIn) => {
-    const token = getXSRFToken();
-
-    postUrlEncoded("/auth/signIn", data, {withCredentials: true})
-    .then((res: any) => {
-        // SUCCEED
-        console.log("res", res);
-    }).catch((error: any) => {
-        // FAILED
-        console.log("error", error);
-    });
-
-    
-    // console.log("token", token);
-
-    // return postUrlEncoded("/auth/signIn", data, {"XSRF-TOKEN": token, withCredentials: true});
+    return postUrlEncoded("/auth/signIn", data, {withCredentials: true})
 }
 
 export const test = () => {

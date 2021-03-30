@@ -5,6 +5,18 @@ export const getCookie = () => {
     return cookies;
 }
 
-export const getXSRFToken = () => {
-    return getCookie().get('XSRF-TOKEN');
+export const getSessionIdFromCookie = () => {
+    return getCookie().get('JSESSIONID');
+}
+
+export const setAccountIdOnCookie = (userAccountId: string) => {
+    return getCookie().set('ACCOUNTID', userAccountId);
+}
+
+export const setUserAuthOnCookie = (auth: any) => {
+    return getCookie().set('AUTH', auth);
+}
+
+export const getUserAuthFromCookie = () => {
+    return getCookie().get('AUTH');
 }
