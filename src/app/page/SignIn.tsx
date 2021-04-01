@@ -170,8 +170,12 @@ const SignIn = () => {
         console.log("res", res);
     }
     
-    const validateCheckInput = () => {
+    const checkPassword = () => {
 
+    }
+
+    const checkUserIdDuplicate =  () => {
+        
     }
 
     return(
@@ -206,12 +210,6 @@ const SignIn = () => {
                 {isSignUpMode() && (
                     <>
                         <Input
-                            placeholder="Name" 
-                            onChange={e  => {
-                                setName(e.target.value);
-                            }}
-                        />  
-                        <Input
                             placeholder="ID"
                             onChange={e => {
                                 setId(e.target.value);
@@ -229,6 +227,12 @@ const SignIn = () => {
                             type="password"
                             onChange={e  => {
                                 setConfirmPassword(e.target.value);
+                            }}
+                        />  
+                        <Input
+                            placeholder="Name" 
+                            onChange={e  => {
+                                setName(e.target.value);
                             }}
                         />  
                         <Input
