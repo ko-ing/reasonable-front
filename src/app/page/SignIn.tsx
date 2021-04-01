@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled, {css} from 'styled-components/macro';
-import { signIn, signUp, test } from '../../util/api/user';
-import { setAccountIdOnCookie, setUserAuthOnCookie, getUserAuthFromCookie} from '../../util/cookie'
+import { signIn, signUp, test } from '../util/api/user';
+import { setAccountIdOnCookie, setUserAuthOnCookie, getUserAuthFromCookie} from '../util/cookie'
 
 
 
