@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
 import styled from 'styled-components';
-import 'react-calendar/dist/Calendar.css';
+import Calendar from '../component/Calendar/Calendar';
+import moment, { Moment as MomentTypes } from 'moment';
+
 const CalendarWrapper = styled.div`
     width: 100%;
     height: 3000px;
 `;
 
 const CalendarFeed = () => {
-    const [currentDate, setCurrentDate] = useState<Date>(new Date());
+    const [currentDate, setCurrentDate] = useState<MomentTypes>(moment());
 
     return (
         <CalendarWrapper>
             <Calendar 
-                value={currentDate}
-                locale="en-US"
-                // onChange={setCurrentDate} 
+                currentDate={currentDate}
             />
-            
         </CalendarWrapper>
     );
 }
