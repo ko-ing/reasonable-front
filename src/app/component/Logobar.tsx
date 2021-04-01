@@ -1,14 +1,11 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const LogobarWrapper = styled.div<{
     logoBarHeight: string
 }>`
-    // position: fixed;
-    // top: 0;
-    // z-index: 5;
     background-color: white;
     height: ${p => p.logoBarHeight};
-    width: 100%;
+    width: 100vw;
     border-bottom: 1px solid #cccccc;
 `;
 

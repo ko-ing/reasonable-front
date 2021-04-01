@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
+import CalendarFeed from '../page/CalendarFeed';
 import SignIn from '../page/SignIn';
-import Calendar from '../page/Calendar';
 import PhotoFeed from '../page/PhotoFeed';
 import PostFeed from '../page/PostFeed';
 import MyInfo from '../page/MyInfo';
@@ -8,6 +8,7 @@ import Navbar from '../component/Navbar';
 import LogobarWrapper from '../component/Logobar';
 import { getAccountIdOnCookie } from '../util/cookie';
 import Stats from '../page/Stats';
+import Error from '../page/Error';
 
 
 const Routes = () => {
@@ -18,13 +19,14 @@ const Routes = () => {
             {getAccountIdOnCookie() && (
                 <>
                     <LogobarWrapper logoBarHeight={logoBarHeight} />
+                    <Navbar logoBarHeight={logoBarHeight} />
                     <Route exact path="/"><Redirect to="/calendar"/></Route>
                     <Route exact path="/posts"  component={PostFeed} />
                     <Route exact path="/photos"  component={PhotoFeed} />
-                    <Route exact path="/calendar"  component={Calendar} />
+                    <Route exact path="/calendar"  component={CalendarFeed} />
                     <Route exact path="/myInfo" component={MyInfo} />
                     <Route exact path="/stats" component={Stats} />
-                    <Navbar logoBarHeight={logoBarHeight} />
+                    <Route exact path="/error" component={Error} />
                 </>
             )}
             {!getAccountIdOnCookie() && (

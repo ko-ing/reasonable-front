@@ -3,60 +3,33 @@ import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { signOff } from '../util/api/user';
 
-const NavMargin = styled.div<{
-    logoBarHeight: string
-}>`
-    position: fixed;
-    top: 0px;
-    left: 60vw;
-    z-index: 3;
-    height: 100vh;
-    width: 40vw;
-
-    background: rgb(200,200,200,0.2);
-`;
-
 const NavbarWrapper = styled.div<{
     isOpen: boolean
     logoBarHeight: string
 }>`
-    position: fixed;
-    top: 0px;
-    z-index: 5;
-    height: 100vh;
-    width: 60vw;
+    height: 40px;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+
+    // padding: 0px 10px;
+    overflow: auto;
     background: white;
-    // border: 2px solid #dddddd;
-    border-top:  1px solid #cccccc;
-    border-right:  1px solid #cccccc;
-    // border-radius: 20px 0px 0px 20px;
 `;
 
-const OpenCloseButton = styled.div<{
-    isOpen: boolean
-}>`
-    position: fixed;
-    z-index: 5;
-    bottom: 20px;
-    right: 20px;
-    height: 20px;
-    width: 20px;
-    background-color: black;
-`;
 
 const NavEach = styled.div<{
     chosen: boolean
 }>`
-    // border-bottom: 1px solid #cccccc;
     height: 40px;
-    width: 100%;
+    min-width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${p => p.chosen && "#e0f3ff"}
-    /* & :hover {
-        background-color: #e0f3ff;
-    } */
+    background-color: ${p => p.chosen && "#e0f3ff"};
+    margin-left: 10px;
+    font-size: 14px;
+    border-radius: 5px;
 `;
 
 const NavTitle = styled.div`
@@ -100,13 +73,7 @@ const Navbar = ({
 
     return (
         <>
-            <OpenCloseButton 
-                isOpen={isOpen}
-                onClick={()=>{
-                    setIsOpen(!isOpen);
-                }}
-            />
-            {isOpen && (
+
                 <>
                     <NavbarWrapper 
                         isOpen={isOpen}
@@ -127,22 +94,16 @@ const Navbar = ({
                                 </NavEach>
                             )
                         })}
-                    <SignOff
+                    {/* <SignOff
                         onClick={() => {
                             signOff();
                         }}
                     >
                         로그아웃
-                    </SignOff>
+                    </SignOff> */}
                     </NavbarWrapper>
-                    <NavMargin
-                        logoBarHeight={logoBarHeight}
-                        onClick={() => {
-                            setIsOpen(false);
-                        }}    
-                    />
                 </>
-            )}
+
         </>
     );
 }
