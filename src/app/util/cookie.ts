@@ -13,10 +13,18 @@ export const getAccountIdOnCookie =() => {
     return getCookie().get('ACCOUNTID');
 }
 
+export const deleteAccountIdFromCookie = () => {
+    return getCookie().remove('ACCOUNTID');
+}
+
 export const setUserAuthOnCookie = (auth: any) => {
     return getCookie().set('AUTH', auth);
 }
 
 export const getUserAuthFromCookie = () => {
     return getCookie().get('AUTH');
+}
+
+export const deleteUserAuthFromCookie = () => {
+    return getCookie().remove('AUTH');
 }

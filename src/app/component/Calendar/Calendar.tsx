@@ -3,13 +3,11 @@ import styled, { css } from 'styled-components/macro';
 import moment, { Moment } from 'moment';
 
 const CalendarWrapper = styled.div`
-    /* background-color: #f7fcff; */
     background-color: white;
     width: 100%;
 `;
 
 const MonthYearWrapper = styled.div`
-/* width: 50px; */
 position: relative;
 display: flex;
 flex-direction: column;
@@ -30,18 +28,23 @@ const Day = styled.div<{
     selected: boolean
     color?: string
     fontSize?: string
+    today?: boolean
 }>`
     width: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     color: ${p => p.color || "#484848"};
     font-size: ${p => p.fontSize || "16px"};
     ${p => p.selected && css`
         background-color: #719eff;
-        border-radius: 20px;
         color: #fefefe;
+    `}
+    ${p => (!p.selected && p.today) && css`
+        background-color: white;
+        box-shadow: 0 0 0 2px #dddddd inset; 
     `}
 `;
 
@@ -73,6 +76,8 @@ const Calendar = ({
     setCurrentDate: any
 }) => {
     const [monthOnPage, setMonthOnPage] = useState<Moment>(moment());
+    const today = moment();
+
     const generate = useMemo(() => {
         const startWeek = monthOnPage.clone().startOf('month').week();
         const endWeek = monthOnPage.clone().endOf('month').week() === 1 ? 53 : monthOnPage.clone().endOf('month').week();
@@ -86,6 +91,7 @@ const Calendar = ({
                         return (
                             <Day 
                                 selected={current.isSame(currentDate, 'date')}
+                                today={current.isSame(today, 'date')}
                                 color={!isInThisMonth ? "#bfbfbf" : (current.day() == 0) ? "red" : (current.day() == 6) ? "blue" : "#484848"}
                                 fontSize="14px"
                                 onClick={() => {
@@ -116,7 +122,7 @@ const Calendar = ({
             {Days.map((d,i) => (
                 <Day 
                     selected={false}
-                    color={(i == 0) ? "red" : (i == 6) ? "blue" : "#484848"}
+                    color={(i == 0) ? "#992222" : (i == 6) ? "#222299" : "#484848"}
                 >
                     {d}
                 </Day>

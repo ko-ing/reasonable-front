@@ -9,12 +9,12 @@ const SplitLineWrapper = styled.div`
     margin-top: 10px;
 `;
 const CurrentDate  = styled.div`
-    font-size: 12px;
+    font-size: 13px;
     color: #777777;
 `;
 
 const SplitLine = styled.div`
-    width: 35vw;
+    width: 30vw;
     height: 1px;
     background-color: #e0e0e0;
 `;
@@ -57,7 +57,7 @@ const Sections: {name: string, content: any}[] = [{
     content: <>hey</>
 }, {
     name: "게시글",
-    content: <PostPhotoWrapper></PostPhotoWrapper>
+    content: <PostPhotoWrapper>일정/게시글 등 선택 박스로 해서 선택한 거만 표시되도록</PostPhotoWrapper>
 }, {
     name: "사진",
     content: <PostPhotoWrapper>여기에 인스타 사진 피드 같은 느낌으로 사진 샤샤샥</PostPhotoWrapper>
