@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import styled, { css } from 'styled-components/macro';
-import moment, { Moment as MomentTypes } from 'moment';
+import moment, { Moment } from 'moment';
 
 const CalendarWrapper = styled.div`
-    background-color: #f7fcff;
-    /* background-color: #fafafa; */
+    /* background-color: #f7fcff; */
+    background-color: white;
     width: 100%;
 `;
 
@@ -19,11 +19,11 @@ padding-top: 15px;
 `;
 
 const Year = styled.div`
-    font-size: 14px;
+    font-size: 12px;
 `;
 
 const Month = styled.div`
-    font-size: 25px;
+    font-size: 22px;
 `;
 
 const Day = styled.div<{
@@ -46,10 +46,10 @@ const Day = styled.div<{
 `;
 
 const DayRow = styled.div`
-    width: 100%;
+    width: calc(100% -10px);
     display: flex;
     justify-content: space-around;
-    padding: 10px 0px;
+    padding: 7px 10px;
 `;
 
 const MonthRoute = styled.div<{
@@ -58,7 +58,7 @@ const MonthRoute = styled.div<{
     position: absolute;
     ${p => p.isLeft ? "left" : "right"} : 100px;
     top: 21px;
-    font-size: 25px;
+    font-size: 22px;
 `;
 
 const Months = ['일 월', '이 월', '삼 월', '사 월', '오 월', '유 월', '칠 월', '팔 월', '구 월', '시 월', '십 일 월', '십 이 월'];
@@ -66,11 +66,13 @@ const Days = ['일', '월', '화', '수', '목', '금', '토'];
 
 
 const Calendar = ({
-    currentDate
+    currentDate,
+    setCurrentDate
 }: {
-    currentDate: MomentTypes
+    currentDate: Moment
+    setCurrentDate: any
 }) => {
-    const [monthOnPage, setMonthOnPage] = useState<MomentTypes>(moment());
+    const [monthOnPage, setMonthOnPage] = useState<Moment>(moment());
     const generate = useMemo(() => {
         const startWeek = monthOnPage.clone().startOf('month').week();
         const endWeek = monthOnPage.clone().endOf('month').week() === 1 ? 53 : monthOnPage.clone().endOf('month').week();
@@ -80,11 +82,17 @@ const Calendar = ({
                 <DayRow key={week}>
                     {Array(7).fill(0).map((n, i) => {
                         let current = monthOnPage.clone().week(week).startOf('week').add(n + i, 'day');
+                        let isInThisMonth = current.isSame(monthOnPage, 'month');
                         return (
                             <Day 
                                 selected={current.isSame(currentDate, 'date')}
-                                color={(current.day() == 0) ? "red" : (current.day() == 6) ? "blue" : "#484848"}
-                                fontSize="15px"
+                                color={!isInThisMonth ? "#bfbfbf" : (current.day() == 0) ? "red" : (current.day() == 6) ? "blue" : "#484848"}
+                                fontSize="14px"
+                                onClick={() => {
+                                    console.log(current)
+                                    setCurrentDate(current)
+                                    if (!isInThisMonth) setMonthOnPage(current);
+                                }}
                             >
                                 {current.format('D')}
                             </Day>
@@ -94,7 +102,7 @@ const Calendar = ({
             )
         }
         return calendar;
-    }, [monthOnPage]);
+    }, [monthOnPage, currentDate]);
     
     return (
         <CalendarWrapper>
