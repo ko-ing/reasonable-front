@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import moment, { Moment } from 'moment';
 
 const CalendarWrapper = styled.div`
-    background-color: white;
+    background-color: #fcfcff;
     width: 100%;
 `;
 
@@ -96,7 +96,7 @@ const Calendar = ({
                                 selected={current.isSame(currentDate, 'date')}
                                 today={current.isSame(today, 'date')}
                                 color={!isInThisMonth ? "#bfbfbf" : (current.day() == 0) ? "red" : (current.day() == 6) ? "blue" : "#484848"}
-                                fontSize="14px"
+                                // fontSize="15px"
                                 onClick={() => {
                                     console.log(current)
                                     setCurrentDate(current)

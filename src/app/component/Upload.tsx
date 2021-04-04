@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 const UploadIcon = styled.label`
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: calc(50vw - 15px);
+    bottom: 50px;
     background: url("/upload.svg") no-repeat scroll center center;
     background-size: 20px 20px;
     width: 20px;
     height: 20px;
     border-radius: 4px;
     padding: 5px;
-    border: 1px solid #777777;
+    background-color: rgb(240,240,240,0.5);
+    /* border: 1px solid #777777; */
 `;
 
 const UploadModal = styled.div`

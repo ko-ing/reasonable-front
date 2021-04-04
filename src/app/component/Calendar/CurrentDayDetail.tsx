@@ -40,16 +40,16 @@ const UnderLine = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-    padding: 10px 15px;
+    padding: 10px 0px;
     /* height: 200px; */
     
 `;
 
 const PostPhotoWrapper = styled.div`
-    width: calc(100%- 30px);
+    width: 100vw;
     height: 100vw;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
+    /* border: 1px solid #cccccc; */
+    /* border-radius: 5px; */
 `;
 
 const Sections: {name: string, content: any}[] = [{

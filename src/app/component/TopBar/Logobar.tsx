@@ -10,12 +10,14 @@ const LogobarWrapper = styled.div<{
     height: ${p => p.logoBarHeight};
     width: 100vw;
     border-bottom: 1px solid #cccccc;
+    display: flex;
+    justify-content: center;
 `;
 
 const Logout = styled.div`
     position: absolute;
     right: 15px;
-    top: 15px;
+    top: 12px;
     width: 20px;
     height: 20px;
     background: url("signoff.svg");
@@ -30,6 +32,14 @@ const invokeSignOff = () => {
     deleteUserAuthFromCookie();
 }
 
+const Logo = styled.div`
+    font-family: "GreatVibes";
+    font-size: 30px;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 10px;
+`;
+
 const Logobar = ({
     logoBarHeight
 } : {
@@ -38,6 +48,7 @@ const Logobar = ({
     return (
         <>
             <LogobarWrapper logoBarHeight={logoBarHeight}>
+                <Logo>Reasonable</Logo>
                 <Logout
                     onClick={() => {
                         invokeSignOff();
