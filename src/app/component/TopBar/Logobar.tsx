@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
-import { signOff, signUp } from '../util/api/user';
-import { deleteAccountIdFromCookie, deleteUserAuthFromCookie } from '../util/cookie';
+import { signOff, signUp } from '../../util/api/user';
+import { deleteAccountIdFromCookie, deleteUserAuthFromCookie } from '../../util/cookie';
 
 const LogobarWrapper = styled.div<{
     logoBarHeight: string

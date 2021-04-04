@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
-import { signOff } from '../util/api/user';
 
 const NavbarWrapper = styled.div<{
     isOpen: boolean
@@ -92,13 +91,6 @@ const Navbar = ({
                                 </NavEach>
                             )
                         })}
-                    {/* <SignOff
-                        onClick={() => {
-                            signOff();
-                        }}
-                    >
-                        로그아웃
-                    </SignOff> */}
                     </NavbarWrapper>
                 </>
 

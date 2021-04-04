@@ -59,9 +59,12 @@ const MonthRoute = styled.div<{
     isLeft: boolean
 }>`
     position: absolute;
-    ${p => p.isLeft ? "left" : "right"} : 100px;
+    ${p => p.isLeft ? "left" : "right"} : 25vw;
     top: 21px;
     font-size: 22px;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const Months = ['일 월', '이 월', '삼 월', '사 월', '오 월', '유 월', '칠 월', '팔 월', '구 월', '시 월', '십 일 월', '십 이 월'];
