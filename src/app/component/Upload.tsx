@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import moment, { Moment } from 'moment';
 
 const UploadIcon = styled.label`
     position: fixed;
@@ -18,12 +21,14 @@ const UploadIcon = styled.label`
 const UploadModal = styled.div`
     position: fixed;
     top: 50px;
-    left: 10vw;
+    left: 0vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     z-index: 5;
-    width: 80vw;
+    width: 100vw;
     height: 60vh;
     background: white;
-    border: 1px solid #dddddd;
 `;
 
 const ModalMargin = styled.div`
@@ -49,8 +54,20 @@ const PreviewPhotos = styled.div<{
     // padding: 10px;
 `;
 
-const DateRollOver = styled.div`
-
+const DateSelector = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 35px;
+    background-color: #6e76ec;
+    color: white;
+    font-size: 15px;
+    font-family: "NanumBarunGothic";
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0px;
+    margin-top: 10px;
 `;
 
 const Upload =  ({
@@ -58,9 +75,30 @@ const Upload =  ({
 }: {
     uploadType: "photo" | "post"
 }) => {
-    const [isUploadViewOpen, setUploadView] = useState<boolean>(false);
+    const [isUploaded, setIsUploaded] = useState<boolean>(false);
     const [files, setFiles] = useState<Blob[]>([]);
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);
+    const [pictureDate, setPictureDate] = useState<any>(new Date());
+    const ExampleCustomInput = forwardRef(
+        ({ value, onClick }: {value?:any, onClick?:any}, ref:any) => (
+          <DateSelector onClick={onClick} ref={ref}>
+            {value}
+          </DateSelector>
+        ),
+    );
+
+    // useEffect(() => {
+    //     if (files !== []) {
+    //         setIsUploaded(true);
+    //     }
+    // }, [])
+
+    const setInitial = useCallback(() => {
+        setIsUploaded(false);
+        setFiles([]);
+        setPreviewUrls([]);
+        setPictureDate(new Date());
+    }, []);
 
     return (
         <>
@@ -82,21 +120,29 @@ const Upload =  ({
                         setPreviewUrls([...previewUrls, reader.result]);
                     }
                     reader.readAsDataURL(f[0]);
-                    setUploadView(true);
-                }}/>
-            {isUploadViewOpen && (
+                    setIsUploaded(true);
+                }}
+            />
+            {isUploaded && (
                 <>
                     <ModalMargin onClick={() => {
-                        setUploadView(false);
-                        setPreviewUrls([]);
+                        // const 
+                        // setInitial();
                     }}/>
                     <UploadModal>
                         {previewUrls.map(p => <PreviewPhotos url={p} />)}
+                        <DatePicker
+                            selected={pictureDate}
+                            onChange={(d) =>{setPictureDate(d)}}
+                            dateFormat="yyyy/MM/dd"
+                            customInput={<ExampleCustomInput />}
+                        />
+                        {/* 사람 태그? + 내 사람들에 그냥 저장 */}
                     </UploadModal>
                 </>
             )}            
         </>
     );
+    
 }
-
 export default Upload;

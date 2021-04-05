@@ -54,16 +54,16 @@ const PostPhotoWrapper = styled.div`
 
 const Sections: {name: string, content: any}[] = [{
     name: "일정",
-    content: <>hey</>
+    content: <></>
 }, {
     name: "게시글",
-    content: <PostPhotoWrapper>일정/게시글 등 선택 박스로 해서 선택한 거만 표시되도록</PostPhotoWrapper>
+    content: <PostPhotoWrapper></PostPhotoWrapper>
 }, {
     name: "사진",
     content: <PostPhotoWrapper>여기에 인스타 사진 피드 같은 느낌으로 사진 샤샤샥</PostPhotoWrapper>
 }, {
     name: "통계",
-    content: <>hi</>
+    content: <></>
 }];
 
 const CurrentDayDetails = ({
