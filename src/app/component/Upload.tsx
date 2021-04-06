@@ -23,11 +23,11 @@ const UploadModal = styled.div`
     top: 50px;
     left: 0vw;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
     z-index: 5;
     width: 100vw;
-    height: 60vh;
+    height: 80vh;
     background: white;
 `;
 
@@ -44,8 +44,8 @@ const ModalMargin = styled.div`
 const PreviewPhotos = styled.div<{
     url: string
 }>`
-    height: 100%;
-    width: 100%;
+    height: 100vw;
+    width: 100vw;
     background: url(${p => p.url});
     background-size: cover;
     background-position: center, center;
@@ -67,6 +67,23 @@ const DateSelector = styled.div`
     font-weight: 500;
     border-radius: 5px;
     padding: 0px;
+    margin-top: 30px;
+`;
+
+const ConfirmCancel = styled.div<{
+    isConfirm: boolean
+}>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 30px;
+`;
+
+const ConfirmWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 120px;
     margin-top: 10px;
 `;
 
@@ -86,12 +103,6 @@ const Upload =  ({
           </DateSelector>
         ),
     );
-
-    // useEffect(() => {
-    //     if (files !== []) {
-    //         setIsUploaded(true);
-    //     }
-    // }, [])
 
     const setInitial = useCallback(() => {
         setIsUploaded(false);
@@ -138,6 +149,14 @@ const Upload =  ({
                             customInput={<ExampleCustomInput />}
                         />
                         {/* 사람 태그? + 내 사람들에 그냥 저장 */}
+                        <ConfirmWrapper>
+                            <ConfirmCancel isConfirm>
+                                확인
+                            </ConfirmCancel>
+                            <ConfirmCancel isConfirm={false}>
+                                취소
+                            </ConfirmCancel>
+                        </ConfirmWrapper>
                     </UploadModal>
                 </>
             )}            
