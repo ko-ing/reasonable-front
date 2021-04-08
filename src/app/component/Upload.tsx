@@ -1,28 +1,34 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import moment, { Moment } from 'moment';
 
 const UploadIcon = styled.label`
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: calc(50vw - 15px);
+    bottom: 50px;
     background: url("/upload.svg") no-repeat scroll center center;
     background-size: 20px 20px;
     width: 20px;
     height: 20px;
     border-radius: 4px;
     padding: 5px;
-    border: 1px solid #777777;
+    background-color: rgb(240,240,240,0.5);
+    /* border: 1px solid #777777; */
 `;
 
 const UploadModal = styled.div`
     position: fixed;
     top: 50px;
-    left: 10vw;
+    left: 0vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     z-index: 5;
-    width: 80vw;
-    height: 60vh;
+    width: 100vw;
+    height: 80vh;
     background: white;
-    border: 1px solid #dddddd;
 `;
 
 const ModalMargin = styled.div`
@@ -38,8 +44,8 @@ const ModalMargin = styled.div`
 const PreviewPhotos = styled.div<{
     url: string
 }>`
-    height: 100%;
-    width: 100%;
+    height: 100vw;
+    width: 100vw;
     background: url(${p => p.url});
     background-size: cover;
     background-position: center, center;
@@ -48,8 +54,45 @@ const PreviewPhotos = styled.div<{
     // padding: 10px;
 `;
 
-const DateRollOver = styled.div`
+const DateSelector = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 35px;
+    /* background-color: #6e76ec; */
+    /* color: white; */
+    font-size: 15px;
+    font-family: "NanumBarunGothic";
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0px;
+    margin-top: 20px;
+`;
 
+const ConfirmCancel = styled.div<{
+    isConfirm: boolean
+}>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 30px;
+    background-color: #6eb3ec;
+    border-radius: 5px;
+    color: white;
+    ${p => !p.isConfirm && css`
+        color: #6eb3ec;
+        background-color: white;
+        box-shadow: 0 0 0 1px #6eb3ec inset; 
+    `}
+`;
+
+const ConfirmWrapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+    width: 160px;
+    margin-top: 30px;
 `;
 
 const Upload =  ({
@@ -57,9 +100,24 @@ const Upload =  ({
 }: {
     uploadType: "photo" | "post"
 }) => {
-    const [isUploadViewOpen, setUploadView] = useState<boolean>(false);
+    const [isUploaded, setIsUploaded] = useState<boolean>(false);
     const [files, setFiles] = useState<Blob[]>([]);
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);
+    const [pictureDate, setPictureDate] = useState<any>(new Date());
+    const ExampleCustomInput = forwardRef(
+        ({ value, onClick }: {value?:any, onClick?:any}, ref:any) => (
+          <DateSelector onClick={onClick} ref={ref}>
+            {value}
+          </DateSelector>
+        ),
+    );
+
+    const setInitial = useCallback(() => {
+        setIsUploaded(false);
+        setFiles([]);
+        setPreviewUrls([]);
+        setPictureDate(new Date());
+    }, []);
 
     return (
         <>
@@ -81,21 +139,37 @@ const Upload =  ({
                         setPreviewUrls([...previewUrls, reader.result]);
                     }
                     reader.readAsDataURL(f[0]);
-                    setUploadView(true);
-                }}/>
-            {isUploadViewOpen && (
+                    setIsUploaded(true);
+                }}
+            />
+            {isUploaded && (
                 <>
                     <ModalMargin onClick={() => {
-                        setUploadView(false);
-                        setPreviewUrls([]);
+                        // const 
+                        // setInitial();
                     }}/>
                     <UploadModal>
                         {previewUrls.map(p => <PreviewPhotos url={p} />)}
+                        <DatePicker
+                            selected={pictureDate}
+                            onChange={(d) =>{setPictureDate(d)}}
+                            dateFormat="yyyy-MM-dd"
+                            customInput={<ExampleCustomInput />}
+                        />
+                        {/* 사람 태그? + 내 사람들에 그냥 저장 */}
+                        <ConfirmWrapper>
+                            <ConfirmCancel isConfirm onClick={() => {alert('upload photo function')}}>
+                                확인
+                            </ConfirmCancel>
+                            <ConfirmCancel isConfirm={false} onClick={setInitial}>
+                                취소
+                            </ConfirmCancel>
+                        </ConfirmWrapper>
                     </UploadModal>
                 </>
             )}            
         </>
     );
+    
 }
-
 export default Upload;

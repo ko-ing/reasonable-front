@@ -6,18 +6,22 @@ const NavbarWrapper = styled.div<{
     isOpen: boolean
     logoBarHeight: string
 }>`
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
     height: 40px;
     width: 100vw;
     display: flex;
     flex-direction: row;
     overflow: auto;
-    background: white;
+    background: #fcfcfc;
 `;
 
 
 const NavEach = styled.div<{
     chosen: boolean
 }>`
+    position: relative;
     height: 40px;
     min-width: 60px;
     display: flex;
@@ -27,6 +31,18 @@ const NavEach = styled.div<{
     margin-left: 10px;
     font-size: 14px;
     border-radius: 5px;
+`;
+
+const NavTopBar = styled.div<{
+    chosen: boolean
+}>`
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 2px;
+    width: 40px;
+    background: ${p => p.chosen && "#5555ff"}
+
 `;
 
 const NavTitle = styled.div`
@@ -88,6 +104,7 @@ const Navbar = ({
                                 >
                                     {n.title}
                                     {n.image}
+                                    <NavTopBar chosen={chosen==n.route}/>
                                 </NavEach>
                             )
                         })}
