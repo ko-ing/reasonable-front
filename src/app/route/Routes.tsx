@@ -12,7 +12,7 @@ import Error from '../page/Error';
 
 
 const Routes = () => {
-    const logoBarHeight = "50px";
+    const logoBarHeight = "45px";
 
     return (
         <Switch>

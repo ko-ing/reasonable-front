@@ -70,3 +70,8 @@
     url('./NanumSquareRoundOTFEB.otf') format("otf"), 
     url('./NanumSquareRoundEB.ttf') format("truetype");
 }
+
+@font-face {
+    font-family: "GreatVibes";
+    src: url('./GreatVibes-Regular.ttf') format("truetype");
+}
