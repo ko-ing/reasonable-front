@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import moment, { Moment } from 'moment';
@@ -60,14 +60,14 @@ const DateSelector = styled.div`
     align-items: center;
     width: 120px;
     height: 35px;
-    background-color: #6e76ec;
-    color: white;
+    /* background-color: #6e76ec; */
+    /* color: white; */
     font-size: 15px;
     font-family: "NanumBarunGothic";
     font-weight: 500;
     border-radius: 5px;
     padding: 0px;
-    margin-top: 30px;
+    margin-top: 20px;
 `;
 
 const ConfirmCancel = styled.div<{
@@ -78,13 +78,21 @@ const ConfirmCancel = styled.div<{
     align-items: center;
     width: 50px;
     height: 30px;
+    background-color: #6eb3ec;
+    border-radius: 5px;
+    color: white;
+    ${p => !p.isConfirm && css`
+        color: #6eb3ec;
+        background-color: white;
+        box-shadow: 0 0 0 1px #6eb3ec inset; 
+    `}
 `;
 
 const ConfirmWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
-    width: 120px;
-    margin-top: 10px;
+    justify-content: space-around;
+    width: 160px;
+    margin-top: 30px;
 `;
 
 const Upload =  ({
@@ -145,15 +153,15 @@ const Upload =  ({
                         <DatePicker
                             selected={pictureDate}
                             onChange={(d) =>{setPictureDate(d)}}
-                            dateFormat="yyyy/MM/dd"
+                            dateFormat="yyyy-MM-dd"
                             customInput={<ExampleCustomInput />}
                         />
                         {/* 사람 태그? + 내 사람들에 그냥 저장 */}
                         <ConfirmWrapper>
-                            <ConfirmCancel isConfirm>
+                            <ConfirmCancel isConfirm onClick={() => {alert('upload photo function')}}>
                                 확인
                             </ConfirmCancel>
-                            <ConfirmCancel isConfirm={false}>
+                            <ConfirmCancel isConfirm={false} onClick={setInitial}>
                                 취소
                             </ConfirmCancel>
                         </ConfirmWrapper>
