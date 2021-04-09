@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import moment, { Moment } from 'moment';
+import { saveImage } from '../util/api/photo';
 
 const UploadIcon = styled.label`
     position: fixed;
@@ -158,7 +159,13 @@ const Upload =  ({
                         />
                         {/* 사람 태그? + 내 사람들에 그냥 저장 */}
                         <ConfirmWrapper>
-                            <ConfirmCancel isConfirm onClick={() => {alert('upload photo function')}}>
+                            <ConfirmCancel isConfirm onClick={() => {
+                                alert('upload photo function');
+                                const formData = new FormData();
+                                formData.append("photo", files[0]);
+                                formData.append("takenAt", pictureDate);
+                                saveImage(formData);
+                            }}>
                                 확인
                             </ConfirmCancel>
                             <ConfirmCancel isConfirm={false} onClick={setInitial}>
