@@ -3,8 +3,10 @@ import styled from 'styled-components/macro';
 import Upload from '../component/Upload';
 import { getImageUrls } from '../util/api/photo';
 
-const Test = styled.div`
-    height: 3000px;
+const FeedWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    /* height: 3000px; */
     width: 100vw;
 `;
 
@@ -13,7 +15,7 @@ const Photo = styled.div<{
 }>`
     height: 32vw;
     width: 32vw;
-    margin: 0px 2vw 2vw 0vw;
+    margin: 0px 1vw 1vw 0vw;
     background-color: black;
     background-image: url(${p => p.url});
     background-size: cover;
@@ -33,9 +35,9 @@ const PhotoFeed = () => {
 
     return (
         <>
-            <Test>
+            <FeedWrapper>
                 {photos.map(p => <Photo url={p}/>)}
-            </Test>
+            </FeedWrapper>
             <Upload uploadType={"photo"}/>
         </>
     );

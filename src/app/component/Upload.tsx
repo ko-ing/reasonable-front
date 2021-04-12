@@ -163,8 +163,9 @@ const Upload =  ({
                                 alert('upload photo function');
                                 const formData = new FormData();
                                 formData.append("photo", files[0]);
-                                formData.append("takenAt", pictureDate);
+                                formData.append("takenAt", pictureDate.valueOf());
                                 saveImage(formData);
+                                window.location.reload();
                             }}>
                                 확인
                             </ConfirmCancel>
