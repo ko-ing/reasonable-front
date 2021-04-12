@@ -10,15 +10,12 @@ const baseAxios = axios.create({
 export const get = (urlEndpoint: string, queryString?: any): any => {
     const querystring = require('querystring');
     return baseAxios.get(urlEndpoint + qs.stringify(queryString));
-    // return axios.get(config.serverDomain + urlEndpoint + qs.stringify(queryString));
 }
 
 export const post = (urlEndpoint: string, data?: any, option?: any): any => {
     return baseAxios.post(urlEndpoint,data,option);
-    // return axios.post(config.serverDomain + urlEndpoint, data, option);
 }
 
 export const postUrlEncoded = (urlEndpoint: string, data?: any, option?: any): any => {
     return baseAxios.post(urlEndpoint, qs.stringify(data), option);
-    // return axios.post(config.serverDomain + urlEndpoint, qs.stringify(data), option);
 }
