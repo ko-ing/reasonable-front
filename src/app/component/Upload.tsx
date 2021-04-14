@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import moment, { Moment } from 'moment';
 import { saveImage } from '../util/api/photo';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPhotos } from '../redux/photoAction';
 
 const UploadIcon = styled.label`
     position: fixed;
@@ -105,6 +107,8 @@ const Upload =  ({
     const [files, setFiles] = useState<Blob[]>([]);
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);
     const [pictureDate, setPictureDate] = useState<any>(new Date());
+    const dispatch = useDispatch();
+    const photoStore = useSelector((state:any) => state.photoStore);
     const ExampleCustomInput = forwardRef(
         ({ value, onClick }: {value?:any, onClick?:any}, ref:any) => (
           <DateSelector onClick={onClick} ref={ref}>
@@ -159,12 +163,12 @@ const Upload =  ({
                         />
                         {/* 사람 태그? + 내 사람들에 그냥 저장 */}
                         <ConfirmWrapper>
-                            <ConfirmCancel isConfirm onClick={() => {
-                                alert('upload photo function');
+                            <ConfirmCancel isConfirm onClick={async () => {
                                 const formData = new FormData();
                                 formData.append("photo", files[0]);
                                 formData.append("takenAt", pictureDate.valueOf());
-                                saveImage(formData);
+                                const res = await saveImage(formData);
+                                dispatch(addPhotos([res.data]));
                                 window.location.reload();
                             }}>
                                 확인

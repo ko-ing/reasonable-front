@@ -8,8 +8,13 @@ export enum photoAction {
 export const setPhotos = (photos: string[]) => {
     return {
         type: photoAction.SET,
-        payload: {
-            photos: photos
-        }
+        payload: photos
+    }
+}
+
+export const addPhotos = (photos: string[]) => {
+    return {
+        type: photoAction.ADD,
+        payload: photos
     }
 }

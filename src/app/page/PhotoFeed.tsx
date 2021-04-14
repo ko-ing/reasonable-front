@@ -27,15 +27,6 @@ const Photo = styled.div<{
 
 const PhotoFeed = () => {
     const photoStore = useSelector((state:any) => state.photoStore);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        getImageUrls()
-            .then((res: any) => {
-                console.log(res.data);
-                dispatch(setPhotos(res.data));
-            })
-    }, [])
 
     return (
         <>
