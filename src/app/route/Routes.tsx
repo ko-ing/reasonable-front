@@ -9,10 +9,24 @@ import LogobarWrapper from '../component/TopBar/Logobar';
 import { getAccountIdOnCookie } from '../util/cookie';
 import Stats from '../page/Stats';
 import Error from '../page/Error';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { setPhotos } from '../redux/photoAction';
+import { getImageUrls } from '../util/api/photo';
 
 
 const Routes = () => {
     const logoBarHeight = "45px";
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (getAccountIdOnCookie()) {
+            getImageUrls()
+                .then((res: any) => {
+                    dispatch(setPhotos(res.data));
+                });
+        }
+    }, [])
 
     return (
         <Switch>

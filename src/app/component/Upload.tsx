@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import moment, { Moment } from 'moment';
 import { saveImage } from '../util/api/photo';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPhotos } from '../redux/photoAction';
 
 const UploadIcon = styled.label`
     position: fixed;
@@ -16,7 +18,6 @@ const UploadIcon = styled.label`
     border-radius: 4px;
     padding: 5px;
     background-color: rgb(240,240,240,0.5);
-    /* border: 1px solid #777777; */
 `;
 
 const UploadModal = styled.div`
@@ -61,8 +62,6 @@ const DateSelector = styled.div`
     align-items: center;
     width: 120px;
     height: 35px;
-    /* background-color: #6e76ec; */
-    /* color: white; */
     font-size: 15px;
     font-family: "NanumBarunGothic";
     font-weight: 500;
@@ -101,10 +100,11 @@ const Upload =  ({
 }: {
     uploadType: "photo" | "post"
 }) => {
-    const [isUploaded, setIsUploaded] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [files, setFiles] = useState<Blob[]>([]);
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);
     const [pictureDate, setPictureDate] = useState<any>(new Date());
+    const dispatch = useDispatch();
     const ExampleCustomInput = forwardRef(
         ({ value, onClick }: {value?:any, onClick?:any}, ref:any) => (
           <DateSelector onClick={onClick} ref={ref}>
@@ -114,7 +114,7 @@ const Upload =  ({
     );
 
     const setInitial = useCallback(() => {
-        setIsUploaded(false);
+        setIsOpen(false);
         setFiles([]);
         setPreviewUrls([]);
         setPictureDate(new Date());
@@ -127,7 +127,6 @@ const Upload =  ({
                 type="file"
                 id="imageUpload"
                 hidden
-                // multiple
                 accept = "image/jpg,impge/png,image/jpeg,image/gif"
                 onChange={(e)=>{
                     const f = e.target.files;
@@ -140,10 +139,10 @@ const Upload =  ({
                         setPreviewUrls([...previewUrls, reader.result]);
                     }
                     reader.readAsDataURL(f[0]);
-                    setIsUploaded(true);
+                    setIsOpen(true);
                 }}
             />
-            {isUploaded && (
+            {isOpen && (
                 <>
                     <ModalMargin onClick={() => {
                         // const 
@@ -159,13 +158,13 @@ const Upload =  ({
                         />
                         {/* 사람 태그? + 내 사람들에 그냥 저장 */}
                         <ConfirmWrapper>
-                            <ConfirmCancel isConfirm onClick={() => {
-                                alert('upload photo function');
+                            <ConfirmCancel isConfirm onClick={async () => {
                                 const formData = new FormData();
                                 formData.append("photo", files[0]);
                                 formData.append("takenAt", pictureDate.valueOf());
-                                saveImage(formData);
-                                window.location.reload();
+                                const res = await saveImage(formData);
+                                dispatch(addPhotos([res.data]));
+                                setInitial();
                             }}>
                                 확인
                             </ConfirmCancel>
