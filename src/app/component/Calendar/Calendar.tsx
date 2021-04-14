@@ -125,7 +125,7 @@ const Calendar = ({
             {Days.map((d,i) => (
                 <Day 
                     selected={false}
-                    color={(i == 0) ? "#992222" : (i == 6) ? "#222299" : "#484848"}
+                    color={(i == 0) ? "red" : (i == 6) ? "blue" : "#484848"}
                 >
                     {d}
                 </Day>

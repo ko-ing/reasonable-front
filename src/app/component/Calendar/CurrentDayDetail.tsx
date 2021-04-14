@@ -1,5 +1,7 @@
 import styled from  'styled-components/macro';
 import moment, { Moment } from 'moment';
+import { useEffect, useState } from 'react';
+import { getImageUrlsByDate } from '../../util/api/photo';
 
 const SplitLineWrapper = styled.div`
     display: flex;
@@ -48,29 +50,53 @@ const ContentWrapper = styled.div`
 const PostPhotoWrapper = styled.div`
     width: 100vw;
     height: 100vw;
-    /* border: 1px solid #cccccc; */
-    /* border-radius: 5px; */
+    border: 1px solid #cccccc;
+    border-radius: 5px;
 `;
 
-const Sections: {name: string, content: any}[] = [{
-    name: "일정",
-    content: <></>
-}, {
-    name: "게시글",
-    content: <PostPhotoWrapper></PostPhotoWrapper>
-}, {
-    name: "사진",
-    content: <PostPhotoWrapper>여기에 인스타 사진 피드 같은 느낌으로 사진 샤샤샥</PostPhotoWrapper>
-}, {
-    name: "통계",
-    content: <></>
-}];
+const Photo = styled.div<{
+    url:string
+}>`
+    width: 33%;
+    height: 33%;
+    background-color: black;
+    background-image: url(${p => p.url});
+    background-size: cover;
+    background-position: center, center;
+    background-repeat: no-repeat;
+`;
 
 const CurrentDayDetails = ({
     currentDate
 }:{
     currentDate: Moment
 }) => {
+    const [photos, setPhotos] = useState<string[]>([]);
+
+        
+
+    const Sections: {name: string, content: any}[] = [{
+        name: "일정",
+        content: <></>
+    }, {
+        name: "게시글",
+        content: <PostPhotoWrapper></PostPhotoWrapper>
+    }, {
+        name: "사진",
+        content: <PostPhotoWrapper>{photos.map(p => <Photo url={p}/>)}</PostPhotoWrapper>
+    }, {
+        name: "통계",
+        content: <></>
+    }];
+
+    useEffect(() => {
+        getImageUrlsByDate(currentDate)
+            .then((res:any) => {
+                console.log(res, "res")
+                setPhotos(res.data);
+            })
+    }, [currentDate])
+
     return  (
         <>
             <SplitLineWrapper>
