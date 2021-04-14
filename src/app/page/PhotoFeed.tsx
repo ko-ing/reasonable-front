@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import Upload from '../component/Upload';
 import { getImageUrls } from '../util/api/photo';
+import { setPhotos } from '../redux/photoAction';
 
 const FeedWrapper = styled.div`
     display: flex;
@@ -24,19 +26,21 @@ const Photo = styled.div<{
 `;
 
 const PhotoFeed = () => {
-    const [photos, setPhotos] = useState<string[]>([]);
+    const photoStore = useSelector((state:any) => state.photoStore);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         getImageUrls()
             .then((res: any) => {
                 console.log(res.data);
-                setPhotos(res.data);
+                dispatch(setPhotos(res.data));
             })
     }, [])
 
     return (
         <>
             <FeedWrapper>
-                {photos.map(p => <Photo url={p}/>)}
+                {photoStore.photos.map((p:any) => <Photo url={p}/>)}
             </FeedWrapper>
             <Upload uploadType={"photo"}/>
         </>
