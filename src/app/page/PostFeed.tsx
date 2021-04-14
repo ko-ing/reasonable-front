@@ -4,8 +4,6 @@ import Upload from '../component/Upload';
 const PostFeed = () => {
     return (    
         <>
-        post
-            <Upload uploadType={"post"} />
         </>
     )
 }

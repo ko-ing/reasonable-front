@@ -49,16 +49,26 @@ const ContentWrapper = styled.div`
 
 const PostPhotoWrapper = styled.div`
     width: 100vw;
-    height: 100vw;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
+    height: auto;
+    /* border: 1px solid #cccccc; */
+    /* border-radius: 5px; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+`;
+
+const PhotoWrapper = styled.div`
+    /* display: flex;
+    justify-content: center; */
 `;
 
 const Photo = styled.div<{
     url:string
+    hasMargin: boolean
 }>`
-    width: 33%;
-    height: 33%;
+    width: 33vw;
+    height: 33vw;
+    margin: 0px ${p => p.hasMargin ? "0.5vw 0.5vw" : "0vw 0vw"} 0vw;
     background-color: black;
     background-image: url(${p => p.url});
     background-size: cover;
@@ -73,8 +83,6 @@ const CurrentDayDetails = ({
 }) => {
     const [photos, setPhotos] = useState<string[]>([]);
 
-        
-
     const Sections: {name: string, content: any}[] = [{
         name: "일정",
         content: <></>
@@ -83,7 +91,7 @@ const CurrentDayDetails = ({
         content: <PostPhotoWrapper></PostPhotoWrapper>
     }, {
         name: "사진",
-        content: <PostPhotoWrapper>{photos.map(p => <Photo url={p}/>)}</PostPhotoWrapper>
+        content: <PhotoWrapper><PostPhotoWrapper>{photos.map((p:any, i:number) => <Photo hasMargin={i%3!=2} url={p}/>)}</PostPhotoWrapper></PhotoWrapper>
     }, {
         name: "통계",
         content: <></>
@@ -95,7 +103,7 @@ const CurrentDayDetails = ({
                 console.log(res, "res")
                 setPhotos(res.data);
             })
-    }, [currentDate])
+    }, [currentDate]);
 
     return  (
         <>
