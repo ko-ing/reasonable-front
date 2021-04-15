@@ -38,23 +38,16 @@ const PhotoFeed = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("AAAA", photoStore.page);
         const getImages = async () => {
-            console.log("BBBB", photoStore.page);
-
             const res = await getImageUrls({page: photoStore.page, size: 15});
-            console.log("res", res)
             dispatch(addPhotos(res.data));
         }
-        
         getImages();
     }, [photoStore.page])
 
     const onIntersect = async ([entry]:any) => {
         if (!entry.isIntersecting) return;
-
         dispatch(increasePage());
-        // console.log("page", page);
     }
 
     useEffect(() => {
