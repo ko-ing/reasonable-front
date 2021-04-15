@@ -9,7 +9,7 @@ const baseAxios = axios.create({
 
 export const get = (urlEndpoint: string, queryString?: any): any => {
     const querystring = require('querystring');
-    return baseAxios.get(urlEndpoint + qs.stringify(queryString));
+    return baseAxios.get(urlEndpoint + "?" + qs.stringify(queryString));
 }
 
 export const post = (urlEndpoint: string, data?: any, option?: any): any => {
