@@ -2,7 +2,8 @@ export enum photoAction {
     SET,
     ADD,
     DELETE,
-    GET
+    GET,
+    PAGE_INCREASE
 }
 
 export const setPhotos = (photos: string[]) => {
@@ -16,5 +17,11 @@ export const addPhotos = (photos: string[]) => {
     return {
         type: photoAction.ADD,
         payload: photos
+    }
+}
+
+export const increasePage = () => {
+    return {
+        type: photoAction.PAGE_INCREASE
     }
 }

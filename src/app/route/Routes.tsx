@@ -11,7 +11,7 @@ import Stats from '../page/Stats';
 import Error from '../page/Error';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { setPhotos } from '../redux/photoAction';
+import { addPhotos, setPhotos } from '../redux/photoAction';
 import { getImageUrls } from '../util/api/photo';
 
 
@@ -21,7 +21,7 @@ const Routes = () => {
 
     useEffect(() => {
         if (getAccountIdOnCookie()) {
-            getImageUrls()
+            getImageUrls({page:0, size:15})
                 .then((res: any) => {
                     dispatch(setPhotos(res.data));
                 });

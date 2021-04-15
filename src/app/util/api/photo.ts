@@ -5,8 +5,8 @@ export const saveImage = (data: FormData) => {
     return post("/photo", data, {"Content-Type": "multipart/form-data"});
 }
 
-export const getImageUrls = () => {
-    return get("/photo");
+export const getImageUrls = (query: any) => {
+    return get("/photo", query);
 }
 
 export const getImageUrlsByDate = (date:Moment) => {
