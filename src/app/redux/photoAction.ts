@@ -6,14 +6,14 @@ export enum photoAction {
     PAGE_INCREASE
 }
 
-export const setPhotos = (photos: string[]) => {
+export const setPhotos = (photos: any[]) => {
     return {
         type: photoAction.SET,
         payload: photos
     }
 }
 
-export const addPhotos = (photos: string[]) => {
+export const addPhotos = (photos: any[]) => {
     return {
         type: photoAction.ADD,
         payload: photos

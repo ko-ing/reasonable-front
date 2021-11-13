@@ -1,7 +1,7 @@
 import { photoAction } from "./photoAction";
 
 interface stateInterface  {
-    photos: string[]
+    photos: any[]
     page: number
 }
 

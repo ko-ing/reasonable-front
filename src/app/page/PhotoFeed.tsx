@@ -5,8 +5,6 @@ import Upload from '../component/Upload';
 import { addPhotos, increasePage } from '../redux/photoAction';
 import { getImageUrls } from '../util/api/photo';
 
-
-
 const FeedWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -33,8 +31,9 @@ const BottomMargin = styled.div<{}>`
 `;
 
 const PhotoFeed = () => {
+    const [isLoading, setLoading] = useState<boolean>(false);
     const photoStore = useSelector((state:any) => state.photoStore);
-    const [target, setTarget] = useState<any>(null);
+    const target = useRef<any>(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -42,7 +41,7 @@ const PhotoFeed = () => {
             const res = await getImageUrls({page: photoStore.page, size: 15});
             dispatch(addPhotos(res.data));
         }
-        getImages();
+        if (isLoading) getImages();
     }, [photoStore.page])
 
     const onIntersect = async ([entry]:any) => {
@@ -52,19 +51,19 @@ const PhotoFeed = () => {
 
     useEffect(() => {
         if (!target) return;
-
-        let observer = new IntersectionObserver(onIntersect, { threshold: 1 })
-        observer.observe(target);
+        setLoading(true);
+        let observer = new IntersectionObserver(onIntersect, { threshold: 1 });
+        observer.observe(target.current);
         return () => observer && observer.disconnect();
     }, [target]);
       
     return (
         <div>
             <FeedWrapper>
-                {photoStore.photos.map((p:any, i:number) => <Photo hasMargin={i%3!=2} url={p}/>)}
+                {photoStore.photos.map((p:any, i:number) => <Photo hasMargin={i%3!=2} url={p.previewUrl}/>)}
             </FeedWrapper>
             <Upload uploadType={"photo"}/>
-            <div ref={setTarget} />
+            <div ref={target} />
             <BottomMargin />
         </div>
     );
